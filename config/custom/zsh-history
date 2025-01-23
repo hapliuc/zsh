@@ -1,0 +1,14 @@
+#!/usr/bin/zsh
+
+SAVEHIST="1000"
+HISTSIZE="1000"
+HISTFILE="$HOME/.local/share/zsh_history"
+
+setopt incappendhistory
+setopt extendedhistory
+setopt histignorealldups
+setopt histfindnodups
+setopt histreduceblanks
+setopt nohistbeep
+
+

@@ -1,0 +1,27 @@
+#!/usr/bin/zsh
+
+auto_activate_venv() {
+    if [ -d "venv" ]; then
+        source venv/bin/activate
+    elif [ -d ".venv" ]; then
+        source .venv/bin/activate
+    elif [ -d "env" ]; then
+        source env/bin/activate
+    elif [ -d ".env" ]; then
+        source .env/bin/activate
+    fi
+}
+
+auto_deactivate_venv() {
+    if [[ "$VIRTUAL_ENV" != "" ]]; then
+        local current_dir=$(pwd)
+        local venv_dir=$(dirname "$VIRTUAL_ENV")
+        if [[ "$current_dir" != "$venv_dir"* ]]; then
+            deactivate
+        fi
+    fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook chpwd auto_deactivate_venv
+add-zsh-hook chpwd auto_activate_venv
